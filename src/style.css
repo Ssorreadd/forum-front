@@ -1,0 +1,35 @@
+@import 'quill/dist/quill.core.css';
+@import 'quill/dist/quill.snow.css';
+@import 'quill/dist/quill.bubble.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*.ql-editor img {*/
+/*    display: block !important;*/
+/*    margin-left: auto !important;*/
+/*    margin-right: auto !important;*/
+/*}*/
+
+
+.ql-align-center img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    clear: both;
+}
+
+/*.ql-align-right img {*/
+/*    float: right;*/
+/*    clear: both;*/
+/*    margin: 0 0 10px 10px; !* Маржины вокруг изображения для создания отступа текста *!*/
+
+/*    !*margin-left: 10px;*!*/
+/*}*/
+
+.ql-align-left img {
+    float: left;
+    clear: both;
+    /*margin-right: 10px;*/
+}
