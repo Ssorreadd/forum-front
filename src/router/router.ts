@@ -13,6 +13,31 @@ const authorizationChildren: RouteRecordRaw[] = [
     }
 ]
 
+const indexChildren: RouteRecordRaw[] = [
+    {
+        path: '/',
+        name: 'index.main',
+        component: () => import('../router/views/main/MainView.vue')
+    },
+    {
+        path: '/my-post',
+        name: 'index.user-posts',
+        meta: {requiresAuth: true},
+        component: () => import('../router/views/user-posts/UserPostsView.vue')
+    },
+    {
+        path: '/create-post',
+        name: 'index.create',
+        meta: {requiresAuth: true},
+        component: () => import('../router/views/create-post/CreatePostView.vue')
+    },
+    {
+        path: '/about',
+        name: 'index.about',
+        component: () => import('../router/views/about/AboutView.vue')
+    }
+]
+
 const routes: RouteRecordRaw[] = [
     {
         path: '/authorization',
@@ -24,10 +49,7 @@ const routes: RouteRecordRaw[] = [
         path: '/',
         name: 'index',
         component: () => import('../components/Index.vue'),
-        meta: {requiresAuth: true},
-        children: [
-
-        ]
+        children: indexChildren
     }
 ]
 
