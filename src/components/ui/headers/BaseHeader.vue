@@ -18,7 +18,7 @@
         <base-button @click="signIn">Войти</base-button>
         <base-button @click="signUp">Регистрация</base-button>
       </div>
-      <div v-else class="hidden items-center ml-4 space-x-4">
+      <div v-else class="hidden sm:block items-center ml-4 space-x-4">
         <base-button @click="logout">Выйти</base-button>
       </div>
 
