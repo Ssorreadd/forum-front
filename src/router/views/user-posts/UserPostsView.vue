@@ -15,6 +15,7 @@ const router = useRouter();
 const username = ref<string>('')
 
 onMounted(() => {
+  thisUserPosts.value = [];
   username.value = router?.currentRoute?.value?.params['username']?.toString()
   loadThisUserPostsData(true, username.value);
 })
@@ -76,36 +77,46 @@ const openView = (id: number) => {
 </script>
 
 <template>
-  <div class="pt-12 sm:p-8 mx-auto flex flex-col gap-8 max-w-[1170px]">
-    <div class="mx-auto sm:mx-0">
-      <h1 class="text-3xl px text-gray-900 font-bold">Блог пользователя <span class="text-indigo-500">{{username}}</span></h1>
-    </div>
-    <div class="flex flex-wrap gap-8 justify-center items-s sm:justify-between">
-      <div class="flex flex-col sm:flex-row gap-8 flex-wrap">
-        <base-dropdown placeholder="Выберите категорию" v-model="selectIdCategory" :list="category"/>
-        <base-dropdown placeholder="Сортировать" v-model="selectIdOrder" :list="orderList"/>
+  <div class="pt-12 sm:p-8 mx-auto max-w-[1170px]">
+    <div v-if="thisUserPosts.length > 0" class="flex flex-col gap-8">
+      <div class="mx-auto sm:mx-0">
+        <h1 class="text-xl sm:text-3xl px text-gray-900 font-bold">Блог пользователя <span class="text-indigo-500">{{username}}</span></h1>
       </div>
-      <div class="flex items-center gap-8">
-        <XMarkIcon @click="clearDropdown" class="h-6 cursor-pointer"></XMarkIcon>
-        <base-button @click="clickSearch" class="w-36">Поиск</base-button>
+      <div class="flex flex-wrap flex-col sm:flex-row gap-8 justify-center items-s sm:justify-between">
+        <div class="flex flex-col items-center sm:flex-row gap-8 flex-wrap">
+          <base-dropdown placeholder="Выберите категорию" v-model="selectIdCategory" :list="category"/>
+          <base-dropdown placeholder="Сортировать" v-model="selectIdOrder" :list="orderList"/>
+        </div>
+        <div class="flex items-center flex-col sm:flex-row gap-8">
+          <XMarkIcon @click="clearDropdown" class="h-6 cursor-pointer"></XMarkIcon>
+          <base-button @click="clickSearch" class="max-w-36">Поиск</base-button>
+        </div>
       </div>
-    </div>
-    <div class="flex flex-wrap justify-center gap-12 w-full">
-      <post-card
-          v-for="post in thisUserPosts"
-          :key="post.id"
-          :category="post.category"
-          :created_at="post.created_at"
-          :id="post.id"
-          :title="post.title"
-          :user="post.user"
-          :views="post.views"
+      <div class="flex flex-wrap justify-center gap-12 w-full">
+        <post-card
+            v-for="post in thisUserPosts"
+            :key="post.id"
+            :category="post.category"
+            :created_at="post.created_at"
+            :id="post.id"
+            :title="post.title"
+            :user="post.user"
+            :views="post.views"
 
-          @clickOpen="openView"
-      />
+            @clickOpen="openView"
+        />
+      </div>
+      <div v-if="!isEnd" class="w-36 py-12 mx-auto">
+        <base-button @click="loadNext">Загрузить еще</base-button>
+      </div>
     </div>
-    <div v-if="!isEnd" class="w-36 py-12 mx-auto">
-      <base-button @click="loadNext">Загрузить еще</base-button>
+    <div v-else class=" flex flex-col gap-8 ">
+      <div class="mx-auto sm:mx-0">
+        <h1 class="text-3xl px text-gray-900 font-bold">Блог пользователя <span class="text-indigo-500">{{username}}</span></h1>
+      </div>
+      <div>
+        <p>Постов пока нет!</p>
+      </div>
     </div>
   </div>
 </template>

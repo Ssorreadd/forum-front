@@ -18,7 +18,7 @@ defineProps({
 </script>
 
 <template>
-    <article class="overflow-hidden rounded-lg pb-4 sm:pb-6 shadow transition hover:shadow-lg w-[336px] h-[440px]">
+    <article class="overflow-hidden rounded-lg pb-4 sm:pb-6 shadow transition hover:shadow-lg max-w-[336px] max-h-[440px]">
       <img
           alt=""
           src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
