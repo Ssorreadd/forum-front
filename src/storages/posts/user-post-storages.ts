@@ -5,11 +5,20 @@ import PostsService from "../../api/service/posts-service.ts";
 import {addErrorMessage} from "../error-bus.ts";
 
 export const userPosts = ref<Blog[]>([]);
+export const isLoading = ref<boolean>(false);
 export const isEnd = ref<boolean>(false)
 const cursor = ref<string>('')
 
+const isWorking = ref<boolean>(false);
+
 export const loadUserPostsData = (clearCursor: boolean, nickname: string, category: number | null = null, orderName: string | null = null, orderType: string | null = null) => {
+    if (isWorking.value){
+        return
+    }
+
+
     if (clearCursor) {
+        isLoading.value = false;
         cursor.value = ''
         userPosts.value = []
         QueryBuilder.clear()
@@ -42,4 +51,9 @@ export const loadUserPostsData = (clearCursor: boolean, nickname: string, catego
         .catch((error) => {
             addErrorMessage(error);
         })
+        .finally(() => {
+            isLoading.value = true;
+            isWorking.value = false;
+        })
+
 }

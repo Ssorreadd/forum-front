@@ -6,10 +6,18 @@ import QueryBuilder from "../../helpers/query-builder.ts";
 
 export const posts = ref<Blog[]>([]);
 export const isEnd = ref<boolean>(false)
+export const isLoading = ref<boolean>(false);
+
 const cursor = ref<string>('')
+const isWorking = ref<boolean>(false);
 
 export const loadPostsData = (clearCursor: boolean, category: number | null = null, orderName: string | null = null, orderType: string | null = null) => {
+    if (isWorking.value){
+        return
+    }
+
     if (clearCursor) {
+        isLoading.value = false;
         cursor.value = ''
         posts.value = []
         QueryBuilder.clear()
@@ -38,6 +46,10 @@ export const loadPostsData = (clearCursor: boolean, category: number | null = nu
         })
         .catch((error) => {
             addErrorMessage(error);
+        })
+        .finally(() => {
+            isLoading.value = true;
+            isWorking.value = false;
         })
 
 

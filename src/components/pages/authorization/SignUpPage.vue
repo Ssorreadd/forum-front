@@ -1,8 +1,7 @@
 <template>
   <div class="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
     <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-      <img class="mx-auto h-10 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-           alt="Ваша Компания"/>
+      <LogoSvg class="mx-auto h-10 w-auto"/>
       <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Создать аккаунт</h2>
     </div>
 
@@ -60,6 +59,7 @@ import BaseInput from "../../ui/input/base-input.vue";
 import AuthService from "../../../api/service/auth-service.ts";
 import {addErrorMessage} from "../../../storages/error-bus.ts";
 import {useRouter} from "vue-router";
+import LogoSvg from "../../../assets/LogoSvg.vue";
 const router = useRouter();
 
 

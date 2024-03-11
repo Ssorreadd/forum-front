@@ -8,7 +8,8 @@ import {Dropdown} from "../../../types/dropdown.ts";
 import { XMarkIcon } from '@heroicons/vue/24/outline'
 import {useRouter} from "vue-router";
 import PostCard from "../../../components/ui/posts/PostCard.vue";
-import {isEnd, loadUserPostsData, userPosts} from "../../../storages/posts/user-post-storages.ts";
+import {isEnd, isLoading, loadUserPostsData, userPosts} from "../../../storages/posts/user-post-storages.ts";
+import LoadingSvg from "../../../assets/LoadingSvg.vue";
 
 const router = useRouter();
 
@@ -77,7 +78,7 @@ const openView = (id: number) => {
 
 <template>
   <div class="pt-12 sm:p-8 mx-auto max-w-[1170px]">
-    <div v-if="userPosts.length > 0" class="flex flex-col gap-8">
+    <div v-if="userPosts.length > 0 && isLoading" class="flex flex-col gap-8">
       <div class="mx-auto sm:mx-0">
         <h1 class="text-xl sm:text-3xl px text-gray-900 font-bold">Блог пользователя <span class="text-indigo-500">{{username}}</span></h1>
       </div>
@@ -108,6 +109,9 @@ const openView = (id: number) => {
       <div v-if="!isEnd" class="w-36 py-12 mx-auto">
         <base-button @click="loadNext">Загрузить еще</base-button>
       </div>
+    </div>
+    <div v-else-if="!isLoading" class="grid min-h-[140px] w-full place-items-center overflow-x-scroll rounded-lg p-6 lg:overflow-visible">
+      <loading-svg/>
     </div>
     <div v-else class=" flex flex-col gap-8 ">
       <div class="mx-auto sm:mx-0">
