@@ -13,6 +13,41 @@ const authorizationChildren: RouteRecordRaw[] = [
     }
 ]
 
+const indexChildren: RouteRecordRaw[] = [
+    {
+        path: '/',
+        name: 'index.main',
+        component: () => import('../router/views/main/MainView.vue')
+    },
+    {
+        path: '/my-posts',
+        name: 'index.this.user-posts',
+        meta: {requiresAuth: true},
+        component: () => import('../router/views/this-user-post/ThisUserPostView.vue')
+    },
+    {
+        path: '/create-post',
+        name: 'index.create',
+        meta: {requiresAuth: true},
+        component: () => import('../router/views/create-post/CreatePostView.vue')
+    },
+    {
+        path: '/about',
+        name: 'index.about',
+        component: () => import('../router/views/about/AboutView.vue')
+    },
+    {
+        path: '/:username',
+        name: 'index.user-posts',
+        component: () => import('../router/views/user-posts/UserPostsView.vue')
+    },
+    {
+        path: '/:id/view',
+        name: 'index.view',
+        component: () => import('../router/views/view-post/ViewPostView.vue')
+    }
+]
+
 const routes: RouteRecordRaw[] = [
     {
         path: '/authorization',
@@ -24,10 +59,7 @@ const routes: RouteRecordRaw[] = [
         path: '/',
         name: 'index',
         component: () => import('../components/Index.vue'),
-        meta: {requiresAuth: true},
-        children: [
-
-        ]
+        children: indexChildren
     }
 ]
 
@@ -35,8 +67,7 @@ const router = createRouter({
     history: createWebHistory(),
     routes,
 })
-router.beforeEach((to, _ , next) => {
-    document.title = (typeof to.meta.title === 'string' ? to.meta.title : 'loading...');
-    next();
-});
+// router.beforeEach((to, _ , next) => {
+//     next();
+// });
 export default router;

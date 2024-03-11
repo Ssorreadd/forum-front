@@ -3,9 +3,11 @@ import './style.css'
 import App from './App.vue'
 import {QuillEditor} from "@vueup/vue-quill";
 import router from "./router/router.ts";
+import {checkAuth} from "./helpers/check-auth.ts";
+import initializeClientData from "./actions/initialize-clien.ts";
 
 const app = createApp(App);
-app.component('QuillEditor', QuillEditor)
+app.component('QuillEditor', QuillEditor);
 
 app.directive('click-outside', {
     mounted(el, binding) {
@@ -22,7 +24,7 @@ app.directive('click-outside', {
 });
 
 router.beforeEach((to, from, next) => {
-    const authorized= localStorage.getItem('authToken') !== null
+    const authorized= checkAuth()
 
     if (to?.name?.toString().includes('authorization') && authorized) {
         next(from?.name === '' ? '/' : '/');
@@ -36,6 +38,11 @@ router.beforeEach((to, from, next) => {
     }
 })
 
-app.use(router).mount('#app');
+const errorBus = createApp({});
+export default errorBus;
+
+initializeClientData().then(() => {
+    app.use(router).mount('#app');
+})
 
 
