@@ -8,7 +8,6 @@ export const post = ref<OpenPost>();
 export const loadPostData = (id: number) => {
     PostsService.viewPost(id)
         .then((res) => {
-            console.log(res.data);
             post.value = res.data
         })
         .catch((error) => {

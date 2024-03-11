@@ -10,7 +10,7 @@ defineProps({
   id: {type: Number, required: true},
   created_at: {type: String, required: true},
   title: {type: String, required: true},
-  views: {type: Number, required: true},
+  views: {type: [String, Number], required: true},
   user: {type: Object as () => UserPost, required: true},
   category: {type: Object as () => Category, required: true}
 })
