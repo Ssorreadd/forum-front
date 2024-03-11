@@ -13,8 +13,7 @@ import {useRouter} from "vue-router";
 const router = useRouter();
 
 onMounted(() => {
-  thisUserPosts.value = []
-  loadThisUserPostsData(false, user.value?.username!);
+  loadThisUserPostsData(true, user.value?.username!);
 })
 
 const selectIdCategory = ref<number | null>(null)
@@ -69,9 +68,6 @@ const clickSearch = () => {
 const openView = (id: number) => {
   router.push({ name: 'index.view', params: { id } });
 }
-
-
-
 
 </script>
 

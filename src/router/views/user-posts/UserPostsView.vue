@@ -1,6 +1,5 @@
 <script setup lang="ts">
 
-import {isEnd, loadThisUserPostsData, thisUserPosts} from "../../../storages/posts/this-user-post-storages.ts";
 import {category} from "../../../storages/category-storage.ts";
 import BaseDropdown from "../../../components/ui/ dropdown/BaseDropdown.vue";
 import BaseButton from "../../../components/ui/buttons/base-button.vue";
@@ -9,15 +8,15 @@ import {Dropdown} from "../../../types/dropdown.ts";
 import { XMarkIcon } from '@heroicons/vue/24/outline'
 import {useRouter} from "vue-router";
 import PostCard from "../../../components/ui/posts/PostCard.vue";
+import {isEnd, loadUserPostsData, userPosts} from "../../../storages/posts/user-post-storages.ts";
 
 const router = useRouter();
 
 const username = ref<string>('')
 
 onMounted(() => {
-  thisUserPosts.value = [];
   username.value = router?.currentRoute?.value?.params['username']?.toString()
-  loadThisUserPostsData(true, username.value);
+  loadUserPostsData(true, username.value);
 })
 
 const selectIdCategory = ref<number | null>(null)
@@ -44,13 +43,13 @@ const orderList = ref<Dropdown[]>([
 
 
 const loadNext = () => {
-  loadThisUserPostsData(false, username.value)
+  loadUserPostsData(false, username.value)
 }
 
 const clearDropdown = () => {
   selectIdCategory.value = null;
   selectIdOrder.value = null;
-  loadThisUserPostsData(true, username.value)
+  loadUserPostsData(true, username.value)
 }
 const clickSearch = () => {
   let orderName: string | null = null;
@@ -68,7 +67,7 @@ const clickSearch = () => {
     category = selectIdCategory.value;
   }
 
-  loadThisUserPostsData(true, username.value, category, orderName, orderType)
+  loadUserPostsData(true, username.value, category, orderName, orderType)
 }
 
 const openView = (id: number) => {
@@ -78,7 +77,7 @@ const openView = (id: number) => {
 
 <template>
   <div class="pt-12 sm:p-8 mx-auto max-w-[1170px]">
-    <div v-if="thisUserPosts.length > 0" class="flex flex-col gap-8">
+    <div v-if="userPosts.length > 0" class="flex flex-col gap-8">
       <div class="mx-auto sm:mx-0">
         <h1 class="text-xl sm:text-3xl px text-gray-900 font-bold">Блог пользователя <span class="text-indigo-500">{{username}}</span></h1>
       </div>
@@ -94,7 +93,7 @@ const openView = (id: number) => {
       </div>
       <div class="flex flex-wrap justify-center gap-12 w-full">
         <post-card
-            v-for="post in thisUserPosts"
+            v-for="post in userPosts"
             :key="post.id"
             :category="post.category"
             :created_at="post.created_at"

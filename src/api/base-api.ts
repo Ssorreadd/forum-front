@@ -19,6 +19,8 @@ class BasicApi {
                     config.headers['Authorization'] = `Bearer ${token}`;
                 }
 
+                config.headers['Locale'] ='ru';
+
                 return config;
             },
             (error) => {

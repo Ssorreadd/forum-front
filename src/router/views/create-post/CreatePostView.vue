@@ -9,6 +9,10 @@ import BaseButton from "../../../components/ui/buttons/base-button.vue";
 import PostsService from "../../../api/service/posts-service.ts";
 import {user} from "../../../storages/users-storages.ts";
 import {addErrorMessage} from "../../../storages/error-bus.ts";
+import {loadThisUserPostsData} from "../../../storages/posts/this-user-post-storages.ts";
+import {useRouter} from "vue-router";
+
+const router = useRouter();
 
 const title = ref<string>('')
 const selectCategoryId = ref<number | null>(null)
@@ -16,7 +20,6 @@ const content = ref<string>('');
 
 
 const clickPushBlog = () => {
-  console.log(selectCategoryId.value);
   PostsService.createPost({
     user_id: user.value?.id!,
     title: title.value,
@@ -24,7 +27,8 @@ const clickPushBlog = () => {
     category_id: selectCategoryId.value!
   })
       .then(() => {
-        console.log(123321)
+        loadThisUserPostsData(true, user.value?.username!)
+        router.push({ name: 'index.this.user-posts', params: { user: user.value?.username! } });
       })
       .catch((error) => {
         addErrorMessage(error);
