@@ -1,5 +1,5 @@
 <template>
-  <quill-editor contentType="html" :options="editorOptions"/>
+    <quill-editor theme="snow" contentType="html" :options="editorOptions"/>
 </template>
 
 <script setup lang="ts">

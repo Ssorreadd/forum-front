@@ -40,6 +40,11 @@ const indexChildren: RouteRecordRaw[] = [
         path: '/:username',
         name: 'index.user-posts',
         component: () => import('../router/views/user-posts/UserPostsView.vue')
+    },
+    {
+        path: '/:id/view',
+        name: 'index.view',
+        component: () => import('../router/views/view-post/ViewPostView.vue')
     }
 ]
 
@@ -62,8 +67,7 @@ const router = createRouter({
     history: createWebHistory(),
     routes,
 })
-router.beforeEach((to, _ , next) => {
-    document.title = (typeof to.meta.title === 'string' ? to.meta.title : 'loading...');
-    next();
-});
+// router.beforeEach((to, _ , next) => {
+//     next();
+// });
 export default router;

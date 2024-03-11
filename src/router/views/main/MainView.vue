@@ -42,11 +42,13 @@ const orderList = ref<Dropdown[]>([
 const openUserPost = (username: string) => {
   router.push({ name: 'index.user-posts', params: { username } });
 }
+const openView = (id: number) => {
+  router.push({ name: 'index.view', params: { id } });
+}
 
 const loadNext = () => {
   loadPostsData(false)
 }
-
 const clearDropdown = () => {
   selectIdCategory.value = null;
   selectIdOrder.value = null;
@@ -97,7 +99,9 @@ const clickSearch = () => {
           :title="post.title"
           :user="post.user"
           :views="post.views"
+
           @clickUser="openUserPost"
+          @clickOpen="openView"
       />
     </div>
     <div v-if="!isEnd" class="w-36 py-12 mx-auto">

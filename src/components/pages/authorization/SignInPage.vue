@@ -20,9 +20,6 @@
         <div>
           <div class="flex items-center justify-between">
             <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Пароль</label>
-            <div class="text-sm">
-              <a href="#" class="font-semibold text-indigo-600 hover:text-indigo-500">Забыли пароль?</a>
-            </div>
           </div>
           <div class="mt-2">
             <base-input v-model="password" id="password" name="password" type="password" autocomplete="current-password"
@@ -71,6 +68,7 @@ const submitForm = () => {
   }).then((res) => {
     localStorage.setItem('authToken', res.data.data.token);
     router.push({name: 'index.main'})
+    window.location.reload();
   }).catch(error => {
     addErrorMessage(error);
   });

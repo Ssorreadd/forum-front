@@ -7,7 +7,7 @@ import {checkAuth} from "./helpers/check-auth.ts";
 import initializeClientData from "./actions/initialize-clien.ts";
 
 const app = createApp(App);
-app.component('QuillEditor', QuillEditor)
+app.component('QuillEditor', QuillEditor);
 
 app.directive('click-outside', {
     mounted(el, binding) {

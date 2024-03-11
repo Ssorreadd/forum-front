@@ -78,6 +78,7 @@ const submitForm = () => {
       .then((res) => {
         localStorage.setItem('authToken', res.data.data.token)
         router.push({name: 'index.main'})
+        window.location.reload();
       })
       .catch(error => {
         addErrorMessage(error);

@@ -8,7 +8,9 @@ import BaseDropdown from "../../../components/ui/ dropdown/BaseDropdown.vue";
 import BaseButton from "../../../components/ui/buttons/base-button.vue";
 import {XMarkIcon} from '@heroicons/vue/24/outline'
 import PostCard from "../../../components/ui/posts/PostCard.vue";
+import {useRouter} from "vue-router";
 
+const router = useRouter();
 
 onMounted(() => {
   loadThisUserPostsData(false, user.value?.username!);
@@ -63,6 +65,12 @@ const clickSearch = () => {
   loadThisUserPostsData(true, user.value?.username!, category, orderName, orderType)
 }
 
+const openView = (id: number) => {
+  router.push({ name: 'index.view', params: { id } });
+}
+
+
+
 
 </script>
 
@@ -91,6 +99,8 @@ const clickSearch = () => {
           :title="post.title"
           :user="post.user"
           :views="post.views"
+
+          @clickOpen="openView"
       />
     </div>
     <div v-if="!isEnd" class="w-36 py-12 mx-auto">

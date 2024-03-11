@@ -2,7 +2,9 @@
   <nav class="shadow">
     <div class="max-w-[1170px] mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
       <div class="flex-shrink-0">
-        <img class="mx-auto h-10 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company"/>
+        <router-link :to="{name: 'index.main'}">
+          <LogoSvg  class="mx-auto h-10 w-auto"/>
+        </router-link>
       </div>
 
       <div class="hidden sm:flex sm:items-center sm:justify-center flex-grow">
@@ -16,7 +18,7 @@
         <base-button @click="signIn">Войти</base-button>
         <base-button @click="signUp">Регистрация</base-button>
       </div>
-      <div v-else class="hidden sm:flex items-center ml-4 space-x-4">
+      <div v-else class="hidden items-center ml-4 space-x-4">
         <base-button @click="logout">Выйти</base-button>
       </div>
 
@@ -37,8 +39,8 @@
         <base-button @click="signIn" class="mb-2">Войти</base-button>
         <base-button @click="signUp">Регистрация</base-button>
       </div>
-      <div v-else>
-        <base-button @click="logout" class="mb-2">Выйти</base-button>
+      <div v-else class="w-1/3 px-2 pt-2 pb-3 space-y-1">
+        <base-button @click="logout" class="mb-2 ">Выйти</base-button>
       </div>
     </div>
   </nav>
@@ -50,6 +52,7 @@ import BaseButton from "../buttons/base-button.vue";
 import {useRouter} from "vue-router";
 import {checkAuth} from "../../../helpers/check-auth.ts";
 import AuthService from "../../../api/service/auth-service.ts";
+import LogoSvg from "../../../assets/LogoSvg.vue";
 
 const isAuth = !checkAuth();
 const isMenuOpen = ref(false);

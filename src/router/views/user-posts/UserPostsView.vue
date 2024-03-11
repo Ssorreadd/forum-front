@@ -11,6 +11,7 @@ import {useRouter} from "vue-router";
 import PostCard from "../../../components/ui/posts/PostCard.vue";
 
 const router = useRouter();
+
 const username = ref<string>('')
 
 onMounted(() => {
@@ -68,6 +69,10 @@ const clickSearch = () => {
 
   loadThisUserPostsData(true, username.value, category, orderName, orderType)
 }
+
+const openView = (id: number) => {
+  router.push({ name: 'index.view', params: { id } });
+}
 </script>
 
 <template>
@@ -95,6 +100,8 @@ const clickSearch = () => {
           :title="post.title"
           :user="post.user"
           :views="post.views"
+
+          @clickOpen="openView"
       />
     </div>
     <div v-if="!isEnd" class="w-36 py-12 mx-auto">
