@@ -1,7 +1,7 @@
 import {Category} from "./category-type.ts";
 import {UserPost} from "./user-post-type.ts";
 
-type Post = {
+type Blog = {
     id: number,
     title: string,
     user: UserPost
@@ -10,7 +10,7 @@ type Post = {
     created_at: string
 }
 
-export type {Post}
+export type {Blog}
 
 
 

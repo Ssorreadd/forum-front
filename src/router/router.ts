@@ -20,10 +20,10 @@ const indexChildren: RouteRecordRaw[] = [
         component: () => import('../router/views/main/MainView.vue')
     },
     {
-        path: '/my-post',
-        name: 'index.user-posts',
+        path: '/my-posts',
+        name: 'index.this.user-posts',
         meta: {requiresAuth: true},
-        component: () => import('../router/views/user-posts/UserPostsView.vue')
+        component: () => import('../router/views/this-user-post/ThisUserPostView.vue')
     },
     {
         path: '/create-post',
@@ -35,6 +35,11 @@ const indexChildren: RouteRecordRaw[] = [
         path: '/about',
         name: 'index.about',
         component: () => import('../router/views/about/AboutView.vue')
+    },
+    {
+        path: '/:username',
+        name: 'index.user-posts',
+        component: () => import('../router/views/user-posts/UserPostsView.vue')
     }
 ]
 

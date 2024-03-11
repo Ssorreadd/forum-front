@@ -1,21 +1,17 @@
 <script setup lang="ts">
-
-import {isEnd, loadThisUserPostsData, thisUserPosts} from "../../../storages/posts/this-user-post-storages.ts";
+import {onMounted, ref} from "vue";
+import {loadThisUserPostsData, thisUserPosts, isEnd} from "../../../storages/posts/this-user-post-storages.ts";
+import {user} from "../../../storages/users-storages.ts";
 import {category} from "../../../storages/category-storage.ts";
+import {Dropdown} from "../../../types/dropdown.ts";
 import BaseDropdown from "../../../components/ui/ dropdown/BaseDropdown.vue";
 import BaseButton from "../../../components/ui/buttons/base-button.vue";
-import {onMounted, ref} from "vue";
-import {Dropdown} from "../../../types/dropdown.ts";
-import { XMarkIcon } from '@heroicons/vue/24/outline'
-import {useRouter} from "vue-router";
+import {XMarkIcon} from '@heroicons/vue/24/outline'
 import PostCard from "../../../components/ui/posts/PostCard.vue";
 
-const router = useRouter();
-const username = ref<string>('')
 
 onMounted(() => {
-  username.value = router?.currentRoute?.value?.params['username']?.toString()
-  loadThisUserPostsData(true, username.value);
+  loadThisUserPostsData(false, user.value?.username!);
 })
 
 const selectIdCategory = ref<number | null>(null)
@@ -39,16 +35,14 @@ const orderList = ref<Dropdown[]>([
     title: 'Дата (возр.)'
   }
 ])
-
-
 const loadNext = () => {
-  loadThisUserPostsData(false, username.value)
+  loadThisUserPostsData(false, user.value?.username!)
 }
 
 const clearDropdown = () => {
   selectIdCategory.value = null;
   selectIdOrder.value = null;
-  loadThisUserPostsData(true, username.value)
+  loadThisUserPostsData(true, user.value?.username!)
 }
 const clickSearch = () => {
   let orderName: string | null = null;
@@ -66,14 +60,16 @@ const clickSearch = () => {
     category = selectIdCategory.value;
   }
 
-  loadThisUserPostsData(true, username.value, category, orderName, orderType)
+  loadThisUserPostsData(true, user.value?.username!, category, orderName, orderType)
 }
+
+
 </script>
 
 <template>
   <div class="pt-12 sm:p-8 mx-auto flex flex-col gap-8 max-w-[1170px]">
     <div class="mx-auto sm:mx-0">
-      <h1 class="text-3xl px text-gray-900 font-bold">Блог пользователя <span class="text-indigo-500">{{username}}</span></h1>
+      <h1 class="text-3xl px text-gray-900 font-bold">Мой блог</h1>
     </div>
     <div class="flex flex-wrap gap-8 justify-center items-s sm:justify-between">
       <div class="flex flex-col sm:flex-row gap-8 flex-wrap">

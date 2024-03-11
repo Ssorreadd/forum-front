@@ -4,6 +4,7 @@ import App from './App.vue'
 import {QuillEditor} from "@vueup/vue-quill";
 import router from "./router/router.ts";
 import {checkAuth} from "./helpers/check-auth.ts";
+import initializeClientData from "./actions/initialize-clien.ts";
 
 const app = createApp(App);
 app.component('QuillEditor', QuillEditor)
@@ -40,6 +41,8 @@ router.beforeEach((to, from, next) => {
 const errorBus = createApp({});
 export default errorBus;
 
-app.use(router).mount('#app');
+initializeClientData().then(() => {
+    app.use(router).mount('#app');
+})
 
 

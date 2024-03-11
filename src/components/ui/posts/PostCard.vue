@@ -2,15 +2,15 @@
 
 import {Category} from "../../../types/post/category-type.ts";
 import {UserPost} from "../../../types/post/user-post-type.ts";
+import {EyeIcon, UserIcon} from '@heroicons/vue/24/outline'
+import BaseBadge from "../badge/BaseBadge.vue";
 import BaseButton from "../buttons/base-button.vue";
-import { EyeIcon } from '@heroicons/vue/24/outline'
-import { UserIcon } from '@heroicons/vue/24/outline'
 
 defineProps({
   id: {type: Number, required: true},
   created_at: {type: String, required: true},
   title: {type: String, required: true},
-  views: {type: String, required: true},
+  views: {type: Number, required: true},
   user: {type: Object as () => UserPost, required: true},
   category: {type: Object as () => Category, required: true}
 })
@@ -35,7 +35,7 @@ defineProps({
       <div class="p-4 sm:p-6 flex justify-between w-full">
         <div
             class="cursor-pointer flex items-center gap-1"
-            @click="$emit('clickUser', user.id)"
+            @click="$emit('clickUser', user.username)"
         >
           <UserIcon class="h-4"></UserIcon>
           <p>{{user.username}}</p>
@@ -46,8 +46,11 @@ defineProps({
         </div>
       </div>
 
-      <div class="px-4 sm:px-6">
-        <base-button>{{category.title}}</base-button>
+      <div class="px-4 sm:px-6 flex w-full items-center justify-between">
+        <base-badge>{{category.title}}</base-badge>
+        <div>
+          <base-button class="bg-indigo-500">Открыть</base-button>
+        </div>
       </div>
     </article>
 </template>

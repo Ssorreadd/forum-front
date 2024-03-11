@@ -2,10 +2,10 @@ import {Api} from "../api.ts";
 import {reactive} from "vue";
 
 class PostsService extends Api {
-    protected url: string = 'posts';
+    protected url: string = 'blogs';
 
-    public getAllPosts(cursor: string){
-        return this.get(`?${cursor}`);
+    public getAllBlogs(query: string){
+        return this.get(`?${query}`);
     }
 }
 
